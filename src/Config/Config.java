@@ -42,6 +42,16 @@ public class Config {
             Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    //Overload fungsi untuk eksekusi query select semua kolom dengan where
+    public void selectAllCondition(String nameTable, String condition) {
+        try {
+            SQL = "SELECT * FROM " + nameTable + " WHERE " + condition;
+            pst = con.prepareStatement(SQL);
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void insertDB(String nameTable, String[] namecolumn, String[] value) {
         try {
@@ -78,11 +88,11 @@ public class Config {
         return rs;
     }
     //
-    public void deleteDB(String tbl, String nim) {
+    public void deleteDB(String tbl,String colum, String primary) {
         try {
-            SQL = "delete from "+tbl+" where nimmhs=?";
+            SQL = "delete from "+tbl+" where "+colum+"=?";
             pst = con.prepareStatement(SQL);
-            pst.setString(1, nim);
+            pst.setString(1, primary);
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);

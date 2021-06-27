@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import koneksi.conek;
+import Config.Config;
 
 /**
  *
@@ -29,12 +29,8 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     public Login() {
+        db = new Config();
         initComponents();
-        
-        conek DB = new conek();
-        DB.config();
-        con = conek.con;
-        stat = conek.stm;
         
     }
 
@@ -216,8 +212,7 @@ public class Login extends javax.swing.JFrame {
     private void BLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BLoginActionPerformed
         // TODO add your handling code here:
         try{
-            sql = "SELECT * FROM tb_admin WHERE username = '" +Username.getText()+"' AND password='" +Password.getText()+"'";
-            rs = stat.executeQuery(sql);
+            db.selectAllCondition("tb_barang", "username = '"+Username.getText()+"' AND password = '"+Password.getText()+"");
                 if(rs.next()) {
                     if(Username.getText().equals(rs.getString("username")) && Password.getText().equals(rs.getString("password"))) {
                         new navbar().setVisible(true);
@@ -266,7 +261,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
-
+Config db;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BLogin;
     private javax.swing.JPasswordField Password;
