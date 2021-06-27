@@ -221,7 +221,7 @@ public class Login extends javax.swing.JFrame {
             rs = stat.executeQuery(sql);
                 if(rs.next()) {
                     if(Username.getText().equals(rs.getString("username")) && Password.getText().equals(rs.getString("password"))) {
-                        new navbar().setVisible(true);
+                        new navbar(rs.getString("admin_id"),rs.getString("nama"),rs.getInt("akses")).setVisible(true);
                         
                         this.dispose();
                     }

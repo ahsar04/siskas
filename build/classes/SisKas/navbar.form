@@ -128,7 +128,7 @@
                               <Component id="Tanggal" max="32767" attributes="0"/>
                               <Component id="Jam" min="-2" pref="153" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel1" alignment="1" min="-2" pref="450" max="-2" attributes="0"/>
+                          <Component id="nmAdmin" alignment="1" min="-2" pref="450" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="logout" min="-2" pref="80" max="-2" attributes="0"/>
@@ -145,7 +145,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="logout" pref="0" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="nmAdmin" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="Tanggal" min="-2" pref="19" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -321,7 +321,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="nmAdmin">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="PMingLiU-ExtB" size="24" style="1"/>
@@ -330,7 +330,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Ahmad Saifur Rohman"/>
+                <Property name="text" type="java.lang.String" value="Nama Admin"/>
               </Properties>
             </Component>
           </SubComponents>

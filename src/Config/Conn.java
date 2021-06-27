@@ -42,9 +42,9 @@ public class Conn {
         }
     }
     //Overload fungsi untuk eksekusi query select semua kolom dengan where
-    public void selectAllCondition(String nameTable, String condition) {
+    public void selectAllCondition(String nameTable, String colum, String condition) {
         try {
-            SQL = "SELECT * FROM " + nameTable + " WHERE " + condition;
+            SQL = "SELECT * FROM " + nameTable + " WHERE " +colum+"="+ condition;
             pst = con.prepareStatement(SQL);
             pst.executeUpdate();
         } catch (SQLException ex) {

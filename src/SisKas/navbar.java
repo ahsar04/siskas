@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import Config.Conn;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,15 +22,25 @@ public class navbar extends javax.swing.JFrame {
     /**
      * Creates new form navbar
      */
-    public navbar() {
+    public navbar(String idAdmin, String nmAdmin, int Akses) {
+        if (idAdmin == null) {
+             JOptionPane.showMessageDialog(null, "Silahkan login terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+             new Login().setVisible(true);
+        }
         initComponents();
-
+        Conn db = new Conn();
+        DefaultTableModel tbmBrg;
         //Full Jframe
         setExtendedState(MAXIMIZED_BOTH);
         getJam();
+        getAdmin(nmAdmin);
 
     }
 
+    public void getAdmin(String nama){
+        nmAdmin.setText(nama);
+}
+    
     public void getJam() {
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -93,7 +105,7 @@ public class navbar extends javax.swing.JFrame {
         Jam = new javax.swing.JLabel();
         laporan = new javax.swing.JButton();
         logout = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        nmAdmin = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         DesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -185,10 +197,10 @@ public class navbar extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Ahmad Saifur Rohman");
+        nmAdmin.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 24)); // NOI18N
+        nmAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        nmAdmin.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        nmAdmin.setText("Nama Admin");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -212,7 +224,7 @@ public class navbar extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(Tanggal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Jam, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nmAdmin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
@@ -226,7 +238,7 @@ public class navbar extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(nmAdmin)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -389,7 +401,7 @@ public class navbar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new navbar().setVisible(true);
+            new navbar(null, "Nama Admin", 3);
             }
         });
     }
@@ -404,7 +416,6 @@ public class navbar extends javax.swing.JFrame {
     private javax.swing.JButton exit;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -413,6 +424,7 @@ public class navbar extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton laporan;
     private javax.swing.JButton logout;
+    private javax.swing.JLabel nmAdmin;
     private javax.swing.JButton transaksi;
     // End of variables declaration//GEN-END:variables
 
