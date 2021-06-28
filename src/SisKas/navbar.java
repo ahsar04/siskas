@@ -23,6 +23,7 @@ public class navbar extends javax.swing.JFrame {
      * Creates new form navbar
      */
     public navbar(String idAdmin, String nmAdmin, int Akses) {
+        String asu = idAdmin;
         if (idAdmin == null) {
              JOptionPane.showMessageDialog(null, "Silahkan login terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
              new Login().setVisible(true);
@@ -33,12 +34,12 @@ public class navbar extends javax.swing.JFrame {
         //Full Jframe
         setExtendedState(MAXIMIZED_BOTH);
         getJam();
-        getAdmin(nmAdmin);
-
+        getAdmin(idAdmin,nmAdmin);
+        
     }
 
-    public void getAdmin(String nama){
-        nmAdmin.setText(nama);
+    public void getAdmin(String id, String nama){
+        nmAdmin.setText(nama+" | "+id);
 }
     
     public void getJam() {
@@ -80,7 +81,8 @@ public class navbar extends javax.swing.JFrame {
     public void getLogout(){
         int confirm =JOptionPane.showConfirmDialog(this,"Yakin logout ?","logout",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         if (confirm == JOptionPane.YES_OPTION){
-            System.exit(0);
+            new Login().setVisible(true);
+            this.dispose();
         }if(confirm == JOptionPane.NO_OPTION){   
         } 
     }
@@ -331,6 +333,7 @@ public class navbar extends javax.swing.JFrame {
         MenuBarang MBrg = new MenuBarang();
         MBrg.setVisible(true);
         DesktopPane.add(MBrg);
+        
     }//GEN-LAST:event_barangActionPerformed
 
     private void transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transaksiActionPerformed
