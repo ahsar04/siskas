@@ -34,7 +34,7 @@ public class Conn {
             String Username="root";
             String Password="";
             con = DriverManager.getConnection("jdbc:mysql://localhost/"+Database, Username, Password);
-            System.out.println("Koneksi Berhasil");
+//            System.out.println("Koneksi Berhasil");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Conn.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

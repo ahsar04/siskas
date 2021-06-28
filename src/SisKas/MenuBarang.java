@@ -319,8 +319,6 @@ public class MenuBarang extends javax.swing.JInternalFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-        int row;
-        row = tblBarang.getSelectedRow();
         kdBarang.setText("");
         nmBarang.setText("");
         satuan.setText("");

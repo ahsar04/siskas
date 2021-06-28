@@ -23,11 +23,15 @@ public class navbar extends javax.swing.JFrame {
      * Creates new form navbar
      */
     public navbar(String idAdmin, String nmAdmin, int Akses) {
-        String asu = idAdmin;
+        String id = idAdmin;
+        int akses=Akses;
+        
         if (idAdmin == null) {
              JOptionPane.showMessageDialog(null, "Silahkan login terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
              new Login().setVisible(true);
         }
+        
+        
         initComponents();
         Conn db = new Conn();
         DefaultTableModel tbmBrg;
@@ -35,9 +39,15 @@ public class navbar extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
         getJam();
         getAdmin(idAdmin,nmAdmin);
+        btnDisable(akses);
         
     }
 
+    public void btnDisable(int akses){
+        if(akses!=1){
+        admin.setEnabled(false);
+        }
+    }
     public void getAdmin(String id, String nama){
         nmAdmin.setText(nama+" | "+id);
 }
@@ -319,6 +329,7 @@ public class navbar extends javax.swing.JFrame {
 
     private void adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminActionPerformed
         // TODO add your handling code here:DesktopPane.removeAll();
+
         DesktopPane.removeAll();
         DesktopPane.repaint();
         MenuAdmin MAdm = new MenuAdmin();
