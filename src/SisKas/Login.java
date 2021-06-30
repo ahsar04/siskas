@@ -17,7 +17,7 @@ import Config.Conn;
 
 /**
  *
- * @author Tanti
+ * @author Ahmad Saifur Rohman
  */
 public class Login extends javax.swing.JFrame {
 

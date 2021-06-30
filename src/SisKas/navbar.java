@@ -22,23 +22,22 @@ public class navbar extends javax.swing.JFrame {
     /**
      * Creates new form navbar
      */
+    String id;
+    int akses;
     public navbar(String idAdmin, String nmAdmin, int Akses) {
-        String id = idAdmin;
-        int akses=Akses;
-        
-        if (idAdmin == null) {
-             JOptionPane.showMessageDialog(null, "Silahkan login terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-             new Login().setVisible(true);
-        }
-        
-        
+        id = idAdmin;
+        akses=Akses;
+//        if (idAdmin == null) {
+//             JOptionPane.showMessageDialog(null, "Silahkan login terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+//             new Login().setVisible(true);
+//        }
         initComponents();
         Conn db = new Conn();
         DefaultTableModel tbmBrg;
         //Full Jframe
         setExtendedState(MAXIMIZED_BOTH);
         getJam();
-        getAdmin(idAdmin,nmAdmin);
+        getAdmin(nmAdmin);
         btnDisable(akses);
         
     }
@@ -48,8 +47,8 @@ public class navbar extends javax.swing.JFrame {
         admin.setEnabled(false);
         }
     }
-    public void getAdmin(String id, String nama){
-        nmAdmin.setText(nama+" | "+id);
+    public void getAdmin(String nama){
+        nmAdmin.setText(nama);
 }
     
     public void getJam() {
@@ -351,7 +350,7 @@ public class navbar extends javax.swing.JFrame {
         // TODO add your handling code here:
         DesktopPane.removeAll();
         DesktopPane.repaint();
-        MenuPenjualan mnpenjualan = new MenuPenjualan();
+        MenuPenjualan mnpenjualan = new MenuPenjualan(id);
         mnpenjualan.setVisible(true);
         DesktopPane.add(mnpenjualan);
     }//GEN-LAST:event_transaksiActionPerformed
@@ -415,7 +414,7 @@ public class navbar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-            new navbar(null, "Nama Admin", 3);
+            new navbar("adm1", "Nama Admin", 1).setVisible(true);
             }
         });
     }

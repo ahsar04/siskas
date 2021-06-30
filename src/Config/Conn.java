@@ -24,6 +24,7 @@ public class Conn {
     ResultSet rs;
     Statement st;
     String SQL;
+//    String location = "C:\\Users\\Ahmad Saifur Rohman\\OneDrive\\Documents\\NetBeansProjects\\";
     int i;
     
     
@@ -41,10 +42,28 @@ public class Conn {
             Logger.getLogger(Conn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    //Overload fungsi untuk eksekusi query select semua kolom dengan where
-    public void selectAllCondition(String nameTable, String colum, String condition) {
+    
+    public void selectJoinCondition(String[] column, String nameTable, String condition){
+        
         try {
-            SQL = "SELECT * FROM " + nameTable + " WHERE " +colum+"="+ condition;
+            SQL = "SELECT ";
+        for (i = 0; i <= column.length - 1; i++) {
+            SQL += column[i];
+            if (i < column.length - 1) {
+                SQL += ",";
+            }
+        }
+        SQL += " FROM " + nameTable + " WHERE " + condition;
+            pst = con.prepareStatement(SQL);
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    //Overload fungsi untuk eksekusi query select semua kolom dengan where
+    public void selectAllCondition(String nameTable, String column, String condition) {
+        try {
+            SQL = "SELECT * FROM " + nameTable + " WHERE " +column+"="+ condition;
             pst = con.prepareStatement(SQL);
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -115,48 +134,4 @@ public class Conn {
             Logger.getLogger(Conn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-//    public void FilterHuruf(KeyEvent a) {
-//        if (Character.isDigit(a.getKeyChar())) {
-//            a.consume();
-//            //Pesan Dialog Boleh Di Hapus Ini Hanya Sebagai Contoh
-//            JOptionPane.showMessageDialog(null, "Masukan Hanya Huruf", "Peringatan", JOptionPane.WARNING_MESSAGE);
-//        }
-//    }
-// 
-//    //Method Untuk Menyaring Angka
-//    public void FilterAngka(KeyEvent b) {
-//        if (Character.isAlphabetic(b.getKeyChar())) {
-//            b.consume();
-//            //Pesan Dialog Boleh Di Hapus Ini Hanya Sebagai Contoh
-//            JOptionPane.showMessageDialog(null, "Masukan Hanya Angka", "Peringatan", JOptionPane.WARNING_MESSAGE);
-//        }
-//    }
-// 
-//    //Method Untuk Menyaring Huruf Besar
-//    public void HurufBesar(KeyEvent c) {
-//        if (Character.isLowerCase(c.getKeyChar())) {
-//            c.consume();
-//            //Pesan Dialog Boleh Di Hapus Ini Hanya Sebagai Contoh
-//            JOptionPane.showMessageDialog(null, "Masukan Hanya Huruf Besar", "Peringatan", JOptionPane.WARNING_MESSAGE);
-//        }
-//    }
-// 
-//    //Method Untuk Menyaring Huruf Kecil
-//    public void HurufKecil(KeyEvent d) {
-//        if (Character.isUpperCase(d.getKeyChar())) {
-//            d.consume();
-//            //Pesan Dialog Boleh Di Hapus Ini Hanya Sebagai Contoh
-//            JOptionPane.showMessageDialog(null, "Masukan Hanya Huruf Kecil", "Peringatan", JOptionPane.WARNING_MESSAGE);
-//        }
-//    }
-// 
-    //Method Untuk Membatasi Jumlah Karakter
-//    public void JumlahKarakter(KeyEvent e) {
-//        if (Charakter.getText().length() == 8) {
-//            e.consume();
-//            //Pesan Dialog Boleh Di Hapus Ini Hanya Sebagai Contoh
-//            JOptionPane.showMessageDialog(null, "Maksimal yang dimasukan Hanya 8 Karakter", "Peringatan", JOptionPane.WARNING_MESSAGE);
-//        }
-//    }
 }

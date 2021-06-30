@@ -129,6 +129,7 @@ public class MenuBarang extends javax.swing.JInternalFrame {
 
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SisKas/icons/icons8-search-48.png"))); // NOI18N
 
+        tblBarang.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         tblBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -247,7 +248,7 @@ public class MenuBarang extends javax.swing.JInternalFrame {
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
         // TODO add your handling code here:
-        String[] colom = {
+        String[] column = {
             "kd_barang", 
             "nama_barang", 
             "satuan", 
@@ -264,7 +265,7 @@ public class MenuBarang extends javax.swing.JInternalFrame {
             stok.getText()
         };
         if (hrgBeli.getText().matches("[0-9]*")&&hrgJual.getText().matches("[0-9]*")&&stok.getText().matches("[0-9]*")) {
-        db.insertDB("tb_barang", colom, value);
+        db.insertDB("tb_barang", column, value);
         showTable();
         } else {
              JOptionPane.showMessageDialog(null, "Kolom harga dan stok harus angka", "Peringatan", JOptionPane.WARNING_MESSAGE);
