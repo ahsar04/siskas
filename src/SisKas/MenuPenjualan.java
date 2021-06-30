@@ -37,7 +37,6 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
         kdBarang.setEnabled(false);
         nmBarang.setEnabled(false);
         hrgBarang.setEnabled(false);
-        subTotal.setEnabled(false);
             qty.setText("1");
 //        int harga = Integer.parseInt(hrgBarang.getText());
 //        int qty1 = Integer.parseInt(qty.getText());
@@ -127,11 +126,8 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         hrgBarang = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        subTotal = new javax.swing.JTextField();
         btnInsert = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        ttlTagihan = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         ttlBayar = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -145,6 +141,8 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
         qty = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblBarang = new javax.swing.JTable();
+        ttlTagihan = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setTitle("Transaksi");
 
@@ -168,15 +166,6 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
 
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel8.setText("QTY");
-
-        jLabel9.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        jLabel9.setText("Sub Total");
-
-        subTotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                subTotalActionPerformed(evt);
-            }
-        });
 
         btnInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SisKas/icons/icons8-plus-48.png"))); // NOI18N
         btnInsert.addActionListener(new java.awt.event.ActionListener() {
@@ -226,6 +215,14 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                 qtyActionPerformed(evt);
             }
         });
+        qty.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                qtyKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                qtyKeyTyped(evt);
+            }
+        });
 
         tblBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -244,6 +241,13 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(tblBarang);
 
+        ttlTagihan.setFont(new java.awt.Font("Calibri", 0, 28)); // NOI18N
+        ttlTagihan.setText("0");
+        ttlTagihan.setToolTipText("");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Rp.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -252,6 +256,11 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
+                        .addGap(30, 30, 30))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -259,15 +268,12 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                                 .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(subTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(kdTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(1, 1, 1)
@@ -277,14 +283,11 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                                             .addComponent(nmBarang, javax.swing.GroupLayout.Alignment.LEADING)))
                                     .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, Short.MAX_VALUE)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(350, 350, 350))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(350, 350, 350))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11)
                                     .addComponent(jLabel10)
@@ -294,18 +297,21 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(kembalian)
                                     .addComponent(ttlBayar, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(keterangan)
-                                    .addComponent(ttlTagihan, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(30, 30, 30))
+                                    .addComponent(keterangan, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(ttlTagihan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(30, 30, 30))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(kdTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(kdTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -318,33 +324,29 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel8)
                                     .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(ttlTagihan, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(ttlBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel11)))
+                                .addComponent(kdBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(kembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12))
+                                .addComponent(nmBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel13)
-                                    .addComponent(keterangan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(hrgBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(ttlTagihan)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(subTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(kdBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)
+                            .addComponent(ttlBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nmBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(kembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hrgBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel13)
+                            .addComponent(keterangan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -354,7 +356,7 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -367,10 +369,6 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
     private void hrgBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hrgBarangActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_hrgBarangActionPerformed
-
-    private void subTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subTotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_subTotalActionPerformed
 //    public void cekText(){
 //        
 //        if (qty.getText()==null) {
@@ -383,25 +381,39 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
 //    }
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
         // TODO add your handling code here:
-        if (qty.getText()==null) {
+        if (kdBarang.getText()==""&&kdBarang.getText()==null) {
+            JOptionPane.showMessageDialog(null, "Pilih barang terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        }else if (qty.getText()==""&&qty.getText()==null) {
             JOptionPane.showMessageDialog(null, "Masukan qyt terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        }else if(qty.getText()!=""&&qty.getText().matches("[0-9]*")){
-            
+        }else if(qty.getText().matches("[0-9]*")){
+            int harga = Integer.parseInt(hrgBarang.getText());
+            int qty1 = Integer.parseInt(qty.getText());
+            int ttl = harga*qty1;
+            int ttl_taginah=0;
+                ttl_taginah=ttl_taginah+ttl;
+            String tes = Integer.toString(ttl_taginah);
+            ttlTagihan.setText(tes);
             tbmPenjualan.addRow(new Object[]{
             kdBarang.getText(), 
             nmBarang.getText(), 
             hrgBarang.getText(), 
             qty.getText(), 
-            subTotal.getText()
+            ttl
         });
         kdBarang.setText("");
         nmBarang.setText("");
         hrgBarang.setText("");
         qty.setText("");
-        subTotal.setText("");
         }else{
             JOptionPane.showMessageDialog(null, "Qty harus angka!", "Peringatan", JOptionPane.WARNING_MESSAGE);
         }
+        
+//        int total_tagihan=0;
+//        for (int i = 0; i <= tblPenjualan.getColumnCount(); i++) {
+//            total_tagihan = total_tagihan+Integer.parseInt(tblBarang.getValueAt(i, 5).toString());
+//        }
+        
+        
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void qtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtyActionPerformed
@@ -416,7 +428,20 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
         kdBarang.setText(tblBarang.getValueAt(row, 0).toString());
         nmBarang.setText(tblBarang.getValueAt(row, 1).toString());
         hrgBarang.setText(tblBarang.getValueAt(row, 2).toString());
+        qty.setText("1");
     }//GEN-LAST:event_tblBarangMouseClicked
+
+    private void qtyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qtyKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_qtyKeyReleased
+
+    private void qtyKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qtyKeyTyped
+        // TODO add your handling code here:
+//        int qty = Integer.parseInt(qty.getText());
+//        int harga = Integer.parseInt(hrgBarang.getText())*2;
+//        String text =Integer.toString(harga);
+//        subTotal.setText(text);
+    }//GEN-LAST:event_qtyKeyTyped
 
     Conn db;
     DefaultTableModel tbmPenjualan;
@@ -432,10 +457,10 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField kdBarang;
@@ -444,10 +469,9 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
     private javax.swing.JTextField keterangan;
     private javax.swing.JTextField nmBarang;
     private javax.swing.JTextField qty;
-    private javax.swing.JTextField subTotal;
     private javax.swing.JTable tblBarang;
     private javax.swing.JTable tblPenjualan;
     private javax.swing.JTextField ttlBayar;
-    private javax.swing.JTextField ttlTagihan;
+    private javax.swing.JLabel ttlTagihan;
     // End of variables declaration//GEN-END:variables
 }
