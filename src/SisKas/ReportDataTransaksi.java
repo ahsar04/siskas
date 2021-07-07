@@ -82,8 +82,8 @@ public class ReportDataTransaksi extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(Report.class.getName()).log(Level.SEVERE,null,ex);
         }
-        String location = "D:\\File Kuliah\\Matkul\\Semester 2\\Workshop SI Desktop\\";
-        String file= location+"siskas\\src\\SisKas\\dataTransaksi.jrxml";
+        String location = "C:\\Users\\Ahmad Saifur Rohman\\OneDrive\\Documents\\NetBeansProjects\\";
+        String file= location+"SisKas\\src\\SisKas\\dataTransaksi.jrxml";
         JasperReport jr;
         try {
             jr = JasperCompileManager.compileReport(file);

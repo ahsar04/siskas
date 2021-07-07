@@ -9,13 +9,83 @@ package SisKas;
  *
  * @author user
  */
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import Config.Conn;
+import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+import javax.swing.JOptionPane;
 public class DataPenjualan extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form DataPenjualan
      */
+    String tanggal;
     public DataPenjualan() {
+        db = new Conn();
         initComponents();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+        Date date = new Date();
+        tanggal = dateFormat.format(date);
+        tgl_awal.setText(tanggal);
+        tgl_akhir.setText(tanggal);
+        showTable();
+        showDetail("");
+        
+    }
+    
+    public void showTable() {
+        String cari = txtCari.getText();
+        String tglAwal = tgl_awal.getText() ;
+        String tglAkhir = tgl_akhir.getText() ;
+//        if (tgl_awal.getText()=="") {
+//            tglAwal = tanggal;
+//        }
+//        if (tgl_akhir.getText()==""){
+//            tglAkhir=tanggal;
+//        }
+        try {
+            tbmPenjualan = new DefaultTableModel(new String[]{"Kode Transaksi", "Tanggal", "Jumlah Barang", "Total Harga", "Total Bayar", "Kembalian"},0);
+            ResultSet rs;
+            rs = db.selectDB("tb_transaksi WHERE tgl_transaksi >= '"+tglAwal+"' and tgl_transaksi <= '"+tglAkhir+"' and kd_transaksi LIKE '%"+cari+"%'");
+            while (rs.next()) {
+                tbmPenjualan.addRow(new Object[]{
+                    rs.getString("kd_transaksi"), 
+                    rs.getString("tgl_transaksi"),
+                    rs.getString("jml_barang"),
+                    rs.getString("total_tagihan"),
+                    rs.getString("total_bayar"),
+                    rs.getString("kembalian")
+                });
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataPenjualan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tb_transaksi.setModel(tbmPenjualan);
+    }
+    public void showDetail(String getKode) {
+        try {
+            tbmDetail = new DefaultTableModel(new String[]{"Kode Barang", "Nama Barang", "Qty", "Sub Total"},0);
+            ResultSet rs;
+            rs = db.selectDB("tb_detail,tb_barang where tb_detail.kd_barang= tb_barang.kd_barang and kd_transaksi = '"+getKode+"'");
+            while (rs.next()) {
+                tbmDetail.addRow(new Object[]{
+                    rs.getString("tb_detail.kd_barang"), 
+                    rs.getString("tb_barang.nama_barang"),
+                    rs.getString("tb_detail.qty"),
+                    rs.getString("tb_detail.sub_total")
+                });
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataPenjualan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tblDetail.setModel(tbmDetail);
     }
 
     /**
@@ -31,21 +101,23 @@ public class DataPenjualan extends javax.swing.JInternalFrame {
         tgl_awal = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         tgl_akhir = new javax.swing.JTextField();
-        btn_ok = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_transaksi = new javax.swing.JTable();
+        txtCari = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        btnOk = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblDetail = new javax.swing.JTable();
+        lblDetail = new javax.swing.JLabel();
 
         setTitle("Data Penjualan");
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        jLabel2.setText("Tanggal Transaksi");
+        jLabel2.setText("Tanggal");
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel1.setText("S/D");
-
-        btn_ok.setBackground(new java.awt.Color(0, 153, 208));
-        btn_ok.setForeground(new java.awt.Color(255, 255, 255));
-        btn_ok.setText("OK");
 
         tb_transaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,7 +153,57 @@ public class DataPenjualan extends javax.swing.JInternalFrame {
                 return types [columnIndex];
             }
         });
+        tb_transaksi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_transaksiMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tb_transaksi);
+
+        txtCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCariActionPerformed(evt);
+            }
+        });
+        txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCariKeyTyped(evt);
+            }
+        });
+
+        jLabel3.setText("Cari (Kode Transaksi) :");
+
+        btnOk.setBackground(new java.awt.Color(0, 153, 208));
+        btnOk.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        btnOk.setForeground(new java.awt.Color(255, 255, 255));
+        btnOk.setText("OK");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
+
+        btnPrint.setBackground(new java.awt.Color(0, 153, 208));
+        btnPrint.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SisKas/icons/icons8-print-48.png"))); // NOI18N
+        btnPrint.setText("Print ");
+        btnPrint.setToolTipText("");
+
+        tblDetail.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblDetail);
+
+        lblDetail.setText("Detail Transaksi:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,10 +221,22 @@ public class DataPenjualan extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(tgl_akhir, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_ok)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 562, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
-                .addGap(30, 30, 30))
+                        .addComponent(btnOk)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addGap(365, 365, 365)
+                                .addComponent(btnPrint)))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                            .addComponent(lblDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(30, 30, 30))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,23 +247,63 @@ public class DataPenjualan extends javax.swing.JInternalFrame {
                     .addComponent(tgl_awal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(tgl_akhir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_ok, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                    .addComponent(btnOk))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariActionPerformed
 
+    private void txtCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyTyped
+        // TODO add your handling code here:
+        showTable();
+    }//GEN-LAST:event_txtCariKeyTyped
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        // TODO add your handling code here:
+        showTable();
+    }//GEN-LAST:event_btnOkActionPerformed
+
+    private void tb_transaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_transaksiMouseClicked
+        // TODO add your handling code here:
+        int row;
+        row = tb_transaksi.getSelectedRow();
+        String kdTransaksi = tb_transaksi.getValueAt(row, 0).toString();
+        showDetail(kdTransaksi);
+        lblDetail.setText("Detail Transaksi: "+kdTransaksi);
+    }//GEN-LAST:event_tb_transaksiMouseClicked
+    DefaultTableModel tbmPenjualan;
+    DefaultTableModel tbmDetail;
+    Conn db;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_ok;
+    private javax.swing.JButton btnOk;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblDetail;
     private javax.swing.JTable tb_transaksi;
+    private javax.swing.JTable tblDetail;
     private javax.swing.JTextField tgl_akhir;
     private javax.swing.JTextField tgl_awal;
+    private javax.swing.JTextField txtCari;
     // End of variables declaration//GEN-END:variables
 }

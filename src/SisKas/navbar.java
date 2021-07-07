@@ -27,10 +27,10 @@ public class navbar extends javax.swing.JFrame {
     public navbar(String idAdmin, String nmAdmin, int Akses) {
         id = idAdmin;
         akses=Akses;
-//        if (idAdmin == null) {
-//             JOptionPane.showMessageDialog(null, "Silahkan login terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-//             new Login().setVisible(true);
-//        }
+        if (idAdmin == null) {
+             JOptionPane.showMessageDialog(null, "Silahkan login terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+             new Login().setVisible(true);
+        }
         initComponents();
         Conn db = new Conn();
         DefaultTableModel tbmBrg;
@@ -114,7 +114,6 @@ public class navbar extends javax.swing.JFrame {
         exit = new javax.swing.JButton();
         Tanggal = new javax.swing.JLabel();
         Jam = new javax.swing.JLabel();
-        laporan = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         nmAdmin = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -167,7 +166,7 @@ public class navbar extends javax.swing.JFrame {
         data_transaksi.setBackground(new java.awt.Color(0, 153, 208));
         data_transaksi.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         data_transaksi.setForeground(new java.awt.Color(255, 255, 255));
-        data_transaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SisKas/icons/icons8-account-48.png"))); // NOI18N
+        data_transaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SisKas/icons/icons8-graph-report-48.png"))); // NOI18N
         data_transaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 data_transaksiActionPerformed(evt);
@@ -191,14 +190,6 @@ public class navbar extends javax.swing.JFrame {
         Jam.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         Jam.setForeground(new java.awt.Color(255, 255, 255));
         Jam.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-
-        laporan.setBackground(new java.awt.Color(0, 153, 208));
-        laporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SisKas/icons/icons8-check-48.png"))); // NOI18N
-        laporan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                laporanActionPerformed(evt);
-            }
-        });
 
         logout.setBackground(new java.awt.Color(0, 153, 208));
         logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SisKas/icons/icons8-exit-100.png"))); // NOI18N
@@ -226,8 +217,6 @@ public class navbar extends javax.swing.JFrame {
                 .addComponent(transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(data_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(laporan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -263,9 +252,8 @@ public class navbar extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(transaksi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(admin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(data_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(laporan, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(data_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(19, 19, 19))))
         );
 
@@ -374,15 +362,6 @@ public class navbar extends javax.swing.JFrame {
         getLogout();
     }//GEN-LAST:event_logoutActionPerformed
 
-    private void laporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laporanActionPerformed
-        // TODO add your handling code here:
-        DesktopPane.removeAll();
-        DesktopPane.repaint();
-        LaporanPenjualan LPenjualan = new LaporanPenjualan();
-        LPenjualan.setVisible(true);
-        DesktopPane.add(LPenjualan);
-    }//GEN-LAST:event_laporanActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -414,7 +393,7 @@ public class navbar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-            new navbar("adm1", "Nama Admin", 1).setVisible(true);
+            new navbar(null, "Nama Admin", 1);
             }
         });
     }
@@ -435,7 +414,6 @@ public class navbar extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton laporan;
     private javax.swing.JButton logout;
     private javax.swing.JLabel nmAdmin;
     private javax.swing.JButton transaksi;
