@@ -25,6 +25,9 @@ public class MenuAdmin extends javax.swing.JInternalFrame {
     public MenuAdmin() {
         db = new Conn(); 
         initComponents();
+        
+        btnDelete.setEnabled(false);
+        btnUpdate.setEnabled(false);
         showTable();
         
         int row;
@@ -543,6 +546,7 @@ public class MenuAdmin extends javax.swing.JInternalFrame {
 //        if (hrgBeli.getText().matches("[0-9]*")&&hrgJual.getText().matches("[0-9]*")&&stok.getText().matches("[0-9]*")) {
         db.insertDB("tb_admin", colom, value);
         showTable();
+        btnClearActionPerformed(evt);
 //        } else {
 //             JOptionPane.showMessageDialog(null, "Kolom harga dan stok harus angka", "Peringatan", JOptionPane.WARNING_MESSAGE);
 //        }
@@ -559,6 +563,10 @@ public class MenuAdmin extends javax.swing.JInternalFrame {
         user.setText(tblAdm.getValueAt(row, 5).toString());
         pass.setText(tblAdm.getValueAt(row, 6).toString());
         akses.setSelectedItem(tblAdm.getValueAt(row, 7).toString());
+        
+        btnDelete.setEnabled(true);
+        btnUpdate.setEnabled(true);
+        btnInser.setEnabled(false);
     }//GEN-LAST:event_tblAdmMouseClicked
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -606,13 +614,22 @@ public class MenuAdmin extends javax.swing.JInternalFrame {
         user.setText("");
         pass.setText("");
         akses.setSelectedItem("Pegawai");
+        
+        btnDelete.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        btnInser.setEnabled(true);
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        
         String Primary= adminId.getText();
+        int confirm =JOptionPane.showConfirmDialog(this,"Yakin hapus "+Primary+"?","Hapus data",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        if (confirm == JOptionPane.YES_OPTION){
         db.deleteDB("tb_admin", "admin_id", Primary);
         showTable();
+        }if(confirm == JOptionPane.NO_OPTION){   
+        } 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txtCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariActionPerformed

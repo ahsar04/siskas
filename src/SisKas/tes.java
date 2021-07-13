@@ -67,5 +67,7 @@ public class tes {
 //                        result3 += character3;
 //                    }
 //                }
+    String kd = "brg26";
+        System.out.println(kd.substring(3, kd.length()));
     }
 }

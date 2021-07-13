@@ -55,6 +55,7 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
         kdBarang.setEnabled(false);
         nmBarang.setEnabled(false);
         hrgBarang.setEnabled(false);
+        btnBayar.setEnabled(false);
         qty.setText("1");
 //        int harga = Integer.parseInt(hrgBarang.getText());
 //        int qty1 = Integer.parseInt(qty.getText());
@@ -466,6 +467,11 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        
+        int row = tblPenjualan.getSelectedRow();
+        tbmPenjualan.removeRow(row);
+        getTotal();
+        btnClearActionPerformed(evt);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     public void getTotal(){
@@ -493,6 +499,9 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
         }else if (qty.getText()==""&&qty.getText()==null) {
             JOptionPane.showMessageDialog(null, "Masukan qyt terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
         }else if(qty.getText().matches("[0-9]*")){
+            ttlTagihan.setText("Rp. 0,00");
+            ttlBayar.setText("");
+            lbKembalian.setText("Rp. 0,00");
             int harga = Integer.parseInt(hrgBarang.getText());
             int qty1 = Integer.parseInt(qty.getText());
             int ttl = harga*qty1;
@@ -543,6 +552,7 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
         btnClear.setEnabled(true);
         btnInsert.setEnabled(true);
         btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
         
     }//GEN-LAST:event_tblBarangMouseClicked
 
@@ -585,6 +595,7 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
     }
     private void ttlBayarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ttlBayarKeyTyped
         // TODO add your handling code here:
+        btnBayar.setEnabled(true);
     }//GEN-LAST:event_ttlBayarKeyTyped
    
     private void btnBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBayarActionPerformed
@@ -597,6 +608,7 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
         String tanggal = dateFormat.format(date);
         String getTtlTagihan=ttlTagihan.getText();
         String getTtlBayar=ttlBayar.getText();
+        
             String something =getTtlTagihan.substring(0,getTtlTagihan.length()-2);
             int length = something.length();
             String result = "";
@@ -693,10 +705,11 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                 getId
             };
             db.insertDB("tb_transaksi", column, value);
-            showTable();
             getKd();
+            showTable();
+            showTableBarang();
         } else {
-             JOptionPane.showMessageDialog(null, "Kolom harga dan stok harus angka!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+             JOptionPane.showMessageDialog(null, "Kolom jumlah bayar harus angka!", "Peringatan", JOptionPane.WARNING_MESSAGE);
         }
         
     }//GEN-LAST:event_btnBayarActionPerformed
@@ -740,6 +753,8 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
         qty.setText(tblPenjualan.getValueAt(row, 3).toString());
         btnClear.setEnabled(false);
         btnInsert.setEnabled(false);
+        btnUpdate.setEnabled(true);
+        btnDelete.setEnabled(true);
 
     }//GEN-LAST:event_tblPenjualanMouseClicked
 
@@ -763,14 +778,13 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                     result += character;
                 }
             }
-            tbmPenjualan.addRow(new Object[]{
-            kdBarang.getText(), 
-            nmBarang.getText(), 
-            hrgBarang.getText(), 
-            qty.getText(), 
-            kursIndonesia.format(ttl)
-            });
-            
+            int row = tblPenjualan.getSelectedRow();
+            tblPenjualan.setValueAt(kdBarang.getText(), row, 0);
+            tblPenjualan.setValueAt(nmBarang.getText(), row, 1);
+            tblPenjualan.setValueAt(hrgBarang.getText(), row, 2);
+            tblPenjualan.setValueAt(qty.getText(), row, 3);
+            tblPenjualan.setValueAt(kursIndonesia.format(ttl), row, 4);
+             
 //        tblBarang.removeColumnSelectionInterval(1, 3);
         kdBarang.setText("");
         nmBarang.setText("");

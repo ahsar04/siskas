@@ -16,11 +16,18 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import Config.Conn;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 public class DataPenjualan extends javax.swing.JInternalFrame {
 
     /**
@@ -109,7 +116,9 @@ public class DataPenjualan extends javax.swing.JInternalFrame {
         btnPrint = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDetail = new javax.swing.JTable();
-        lblDetail = new javax.swing.JLabel();
+        lbl = new javax.swing.JLabel();
+        kode = new javax.swing.JLabel();
+        tglTransaksi = new javax.swing.JLabel();
 
         setTitle("Data Penjualan");
 
@@ -189,6 +198,11 @@ public class DataPenjualan extends javax.swing.JInternalFrame {
         btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SisKas/icons/icons8-print-48.png"))); // NOI18N
         btnPrint.setText("Print ");
         btnPrint.setToolTipText("");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
 
         tblDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -203,7 +217,11 @@ public class DataPenjualan extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(tblDetail);
 
-        lblDetail.setText("Detail Transaksi:");
+        lbl.setText("Detail Transaksi:");
+
+        kode.setText("Kode : Txxxxxxxxxxx");
+
+        tglTransaksi.setText("Tanggal: yyyy-MM-dd");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -222,7 +240,7 @@ public class DataPenjualan extends javax.swing.JInternalFrame {
                         .addComponent(tgl_akhir, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnOk)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,9 +252,17 @@ public class DataPenjualan extends javax.swing.JInternalFrame {
                                 .addComponent(btnPrint)))
                         .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
-                            .addComponent(lblDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(30, 30, 30))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbl)
+                                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(kode, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tglTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
+                                .addGap(30, 30, 30))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,13 +275,18 @@ public class DataPenjualan extends javax.swing.JInternalFrame {
                     .addComponent(tgl_akhir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOk))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(kode, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tglTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2)
@@ -285,9 +316,37 @@ public class DataPenjualan extends javax.swing.JInternalFrame {
         int row;
         row = tb_transaksi.getSelectedRow();
         String kdTransaksi = tb_transaksi.getValueAt(row, 0).toString();
+        String tgl = tb_transaksi.getValueAt(row, 1).toString();
         showDetail(kdTransaksi);
-        lblDetail.setText("Detail Transaksi: "+kdTransaksi);
+        kode.setText("Kode: "+kdTransaksi);
+        tglTransaksi.setText("Tanggal: "+tgl);
     }//GEN-LAST:event_tb_transaksiMouseClicked
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        // TODO add your handling code here:
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        
+        try {
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/db_siskas","root","");
+        } catch (Exception ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        String location = "C:\\Users\\Ahmad Saifur Rohman\\OneDrive\\Documents\\NetBeansProjects\\";
+        String file= location+"SisKas\\src\\SisKas\\dataBarang.jrxml";
+        JasperReport jr;
+        try {
+            jr = JasperCompileManager.compileReport(file);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, conn);
+            JasperViewer.viewReport(jp);
+        } catch (Exception ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
     DefaultTableModel tbmPenjualan;
     DefaultTableModel tbmDetail;
     Conn db;
@@ -299,9 +358,11 @@ public class DataPenjualan extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblDetail;
+    private javax.swing.JLabel kode;
+    private javax.swing.JLabel lbl;
     private javax.swing.JTable tb_transaksi;
     private javax.swing.JTable tblDetail;
+    private javax.swing.JLabel tglTransaksi;
     private javax.swing.JTextField tgl_akhir;
     private javax.swing.JTextField tgl_awal;
     private javax.swing.JTextField txtCari;

@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import Config.Conn;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 /**
  *
@@ -30,6 +32,17 @@ public class Login extends javax.swing.JFrame {
      */
     
     public Login() {
+        
+//        Dimension screenSize =Toolkit.getDefaultToolkit().getScreenSize();
+//        Dimension frameSize = this.getSize();
+//        if (frameSize.height > screenSize.height){
+//            frameSize.height = screenSize.height;
+//        }
+//        if (frameSize.width > screenSize.width){
+//            frameSize.width = screenSize.width;
+//        }this.setLocation((screenSize.width - frameSize.width)/2, 
+//              (screenSize.height - frameSize.height)/2);
+//        
         initComponents();
         
         loginConn DB = new loginConn();
@@ -79,6 +92,7 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
         jLabel3.setText("SIsKas");
