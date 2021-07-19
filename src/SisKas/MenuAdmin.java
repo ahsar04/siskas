@@ -6,12 +6,19 @@
 package SisKas;
 
 import Config.Conn;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -381,6 +388,11 @@ public class MenuAdmin extends javax.swing.JInternalFrame {
         btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SisKas/icons/icons8-print-48.png"))); // NOI18N
         btnPrint.setText("Print ");
         btnPrint.setToolTipText("");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -644,6 +656,32 @@ public class MenuAdmin extends javax.swing.JInternalFrame {
     private void ListCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListCariActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ListCariActionPerformed
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        // TODO add your handling code here:
+         Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        
+        try {
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/db_siskas","root","");
+        } catch (Exception ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE,null,ex);
+        }
+//        String location = "C:\\Users\\Ahmad Saifur Rohman\\OneDrive\\Documents\\NetBeansProjects\\";
+        String file= "C:\\Users\\Ahmad Saifur Rohman\\OneDrive\\Desktop\\MATKUL\\SMT 2\\WSIBD\\siskas\\src\\SisKas\\dataAdmin.jrxml";
+        JasperReport jr;
+        try {
+            jr = JasperCompileManager.compileReport(file);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, conn);
+            JasperViewer.viewReport(jp);
+        } catch (Exception ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
 
     Conn db;
     DefaultTableModel tbmAdm;
