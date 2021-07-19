@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2021 at 06:31 AM
+-- Generation Time: Jul 19, 2021 at 03:22 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -44,7 +44,7 @@ CREATE TABLE `tb_admin` (
 INSERT INTO `tb_admin` (`admin_id`, `nama`, `telp`, `alamat`, `username`, `password`, `akses`) VALUES
 ('adm1', 'Ahmad Saifur Rohman', '082267687322', 'jl. Merbabu Rt.2 Rw. 20. desa tanggul wetan, kec. Tanggul, Kab Jember', 'asr', '24434', 1),
 ('adm2', 'Candra Pramudya H', '082345678912', 'Probolinggo', 'cph', '11111', 0),
-('adm5', 'Afris Nurfal Aziz', '088788906', 'Ambulu', 'afris', '12345678', 1);
+('adm3', 'Kelompok 1', '08123456789', 'coba	', 'admin', 'admin', 1);
 
 -- --------------------------------------------------------
 
@@ -67,13 +67,13 @@ CREATE TABLE `tb_barang` (
 --
 
 INSERT INTO `tb_barang` (`id`, `kd_barang`, `nama_barang`, `satuan`, `harga_beli`, `harga_jual`, `stok`) VALUES
-(1, 'brg1', 'Bolpoint', 'pcs', 1500, 2000, 102),
-(2, 'brg2', 'Busur', 'pcs', 1000, 2000, 40),
-(3, 'brg3', 'Spidol Warna', 'pack', 13000, 14000, 40),
+(1, 'brg1', 'Bolpoint Honaga', 'pcs', 1500, 2000, 80),
+(2, 'brg2', 'Busur', 'pcs', 1000, 2000, 35),
+(3, 'brg3', 'Spidol Warna', 'pack', 13000, 14000, 37),
 (4, 'brg4', 'Kwitansi', 'pcs', 3000, 4000, 10),
-(5, 'brg5', 'Buku Gambar A4', 'pcs', 2000, 3000, 9),
+(5, 'brg5', 'Buku Gambar A4', 'pcs', 2000, 3000, 3),
 (6, 'brg6', 'Buku Gambar A3', 'pcs', 5000, 6000, 30),
-(7, 'brg7', 'Kaos Kaki', 'pcs', 4000, 5000, 12),
+(7, 'brg7', 'Kaos Kaki', 'pcs', 4000, 5000, 2),
 (8, 'brg8', 'Maps Kertas', 'pcs', 500, 1000, 35),
 (9, 'brg9', 'Maps Plastik', 'pcs', 2000, 3000, 10),
 (10, 'brg10', 'Hasduk', 'pcs', 14000, 16000, 50),
@@ -90,8 +90,11 @@ INSERT INTO `tb_barang` (`id`, `kd_barang`, `nama_barang`, `satuan`, `harga_beli
 (21, 'brg21', 'Pencil', 'pcs', 500, 1000, 12),
 (22, 'brg22', 'Penghapus', 'pcs', 1500, 2000, 20),
 (23, 'brg23', 'Sendal', 'pcs', 18000, 20000, 30),
-(24, 'brg24', 'Tas', 'pcs', 40000, 50000, 5),
-(25, 'brg25', 'Sampul', 'pcs', 250, 500, 20);
+(25, 'brg24', 'Sampul', 'pcs', 250, 500, 20),
+(26, 'brg25', 'tas', 'pcs', 3000, 4000, 10),
+(27, 'brg26', 'Bolpoint Faber Castel', 'pcs', 2500, 3000, 80),
+(28, 'brg27', 'softcase', 'pcs', 7500, 10000, 15),
+(29, 'brg28', 'tupperware', 'pcs', 50000, 85000, 20);
 
 -- --------------------------------------------------------
 
@@ -125,7 +128,20 @@ INSERT INTO `tb_detail` (`kd_transaksi`, `kd_barang`, `qty`, `sub_total`) VALUES
 ('T202107073', 'brg7', 3, 15000),
 ('T202107073', 'brg13', 15, 3750),
 ('T202107073', 'brg17', 6, 132000),
-('T202107073', 'brg15', 1, 3000);
+('T202107073', 'brg15', 1, 3000),
+('T202107081', 'brg7', 10, 50000),
+('T202107082', 'brg2', 1, 2000),
+('T202107083', 'brg1', 1, 2000),
+('T202107084', 'brg2', 1, 2000),
+('T202107085', 'brg5', 6, 18000),
+('T202107085', 'brg3', 2, 28000),
+('T202107085', 'brg1', 10, 20000),
+('T202107086', 'brg1', 10, 20000),
+('T202107087', 'brg1', 1, 2000),
+('T202107087', 'brg2', 1, 2000),
+('T202107088', 'brg2', 1, 2000),
+('T202107181', 'brg2', 1, 2000),
+('T202107181', 'brg3', 1, 14000);
 
 -- --------------------------------------------------------
 
@@ -153,7 +169,16 @@ INSERT INTO `tb_transaksi` (`no`, `kd_transaksi`, `tgl_transaksi`, `jml_barang`,
 (1, 'T202107061', '2021-07-06', 7, 16500, 50000, 33500, '', 'adm1'),
 (2, 'T202107071', '2021-07-07', 7, 17000, 20000, 3000, '', 'adm1'),
 (3, 'T202107072', '2021-07-07', 26, 124500, 150000, 25500, '', 'adm1'),
-(4, 'T202107073', '2021-07-07', 26, 155750, 200000, 44250, '', 'adm1');
+(4, 'T202107073', '2021-07-07', 26, 155750, 200000, 44250, '', 'adm1'),
+(5, 'T202107081', '2021-07-08', 10, 50000, 100000, 50000, '', 'adm1'),
+(6, 'T202107082', '2021-07-08', 1, 2000, 5000, 3000, '', 'adm1'),
+(7, 'T202107083', '2021-07-08', 1, 2000, 5000, 3000, '', 'adm1'),
+(8, 'T202107084', '2021-07-08', 1, 2000, 10000, 8000, '', 'adm1'),
+(9, 'T202107085', '2021-07-08', 18, 66000, 100000, 34000, '', 'adm1'),
+(10, 'T202107086', '2021-07-08', 10, 20000, 50000, 30000, '', 'adm1'),
+(11, 'T202107087', '2021-07-08', 2, 4000, 5000, 1000, '', 'adm1'),
+(12, 'T202107088', '2021-07-08', 1, 2000, 5000, 3000, '', 'adm1'),
+(13, 'T202107181', '2021-07-18', 2, 16000, 20000, 4000, '', 'adm1');
 
 --
 -- Indexes for dumped tables
@@ -193,13 +218,13 @@ ALTER TABLE `tb_transaksi`
 -- AUTO_INCREMENT for table `tb_barang`
 --
 ALTER TABLE `tb_barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
