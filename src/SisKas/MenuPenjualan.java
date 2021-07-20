@@ -516,7 +516,6 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
             qty.getText(), 
             kursIndonesia.format(ttl)
             });
-            
 //        tblBarang.removeColumnSelectionInterval(1, 3);
         kdBarang.setText("");
         nmBarang.setText("");
