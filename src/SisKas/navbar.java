@@ -25,32 +25,34 @@ public class navbar extends javax.swing.JFrame {
     String id;
     int akses;
     public navbar(String idAdmin, String nmAdmin, int Akses) {
-        id = idAdmin;
-        akses=Akses;
+        id = idAdmin;//mengambil parameter admin id
+        akses=Akses;//mengambil nilai parameter hak akses
+        //validasi apakah sudah login atau belum
         if (idAdmin == null) {
              JOptionPane.showMessageDialog(null, "Silahkan login terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
              new Login().setVisible(true);
         }
         initComponents();
-        Conn db = new Conn();
+        Conn db = new Conn();//instansiasi class Conn()
         DefaultTableModel tbmBrg;
         //Full Jframe
         setExtendedState(MAXIMIZED_BOTH);
-        getJam();
-        getAdmin(nmAdmin);
-        btnDisable(akses);
+        getJam();//menjalankan method getJam()
+        getAdmin(nmAdmin);//menjalankan method getAdmin dengan parameter nama admin dari navbar
+        btnDisable(akses);//
         
     }
-
+//disable menu admin juka hak akses bukan admin master
     public void btnDisable(int akses){
         if(akses!=1){
         admin.setEnabled(false);
         }
     }
+    //setter nama admin di pojok kanan atas
     public void getAdmin(String nama){
         nmAdmin.setText(nama);
 }
-    
+    //method untuk mendapatkan jam,menit dan detik realtime
     public void getJam() {
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -80,6 +82,7 @@ public class navbar extends javax.swing.JFrame {
         };
         new javax.swing.Timer(1000, taskPerformer).start();
     }
+    //function tombol exit atau tutup aplikasi
     public void getExit(){
         int confirm =JOptionPane.showConfirmDialog(this,"Logout dan tutup aplikasi ?","Keluar Aplikasi",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         if (confirm == JOptionPane.YES_OPTION){
@@ -87,9 +90,11 @@ public class navbar extends javax.swing.JFrame {
         }if(confirm == JOptionPane.NO_OPTION){   
         } 
     }
+    //function tombol logout
     public void getLogout(){
         int confirm =JOptionPane.showConfirmDialog(this,"Yakin logout ?","logout",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         if (confirm == JOptionPane.YES_OPTION){
+            //redirect ke halaman login
             new Login().setVisible(true);
             this.dispose();
         }if(confirm == JOptionPane.NO_OPTION){   
@@ -317,49 +322,50 @@ public class navbar extends javax.swing.JFrame {
     private void adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminActionPerformed
         // TODO add your handling code here:DesktopPane.removeAll();
 
-        DesktopPane.removeAll();
-        DesktopPane.repaint();
-        MenuAdmin MAdm = new MenuAdmin();
-        MAdm.setVisible(true);
-        DesktopPane.add(MAdm);
+        DesktopPane.removeAll();//remove item pada dekstop pane
+        DesktopPane.repaint();//repaint item pada dekstop pane
+        MenuAdmin MAdm = new MenuAdmin();//instansiasi class MenuAdmin()
+        MAdm.setVisible(true);//setter halaman admin
+        DesktopPane.add(MAdm);//add item yang sudah di set pada dekstop pane
     }//GEN-LAST:event_adminActionPerformed
 
     private void barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barangActionPerformed
         // TODO add your handling code here:DesktopPane.removeAll();
-        DesktopPane.removeAll();
-        DesktopPane.repaint();
-        MenuBarang MBrg = new MenuBarang();
-        MBrg.setVisible(true);
-        DesktopPane.add(MBrg);
+        DesktopPane.removeAll();//remove item pada dekstop pane
+        DesktopPane.repaint();//repaint item pada dekstop pane
+        MenuBarang MBrg = new MenuBarang();//instansiasi class MenuBarang()
+        MBrg.setVisible(true);//setter halaman barang
+        DesktopPane.add(MBrg);//add item yang sudah di set pada dekstop pane
         
     }//GEN-LAST:event_barangActionPerformed
 
     private void transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transaksiActionPerformed
         // TODO add your handling code here:
-        DesktopPane.removeAll();
-        DesktopPane.repaint();
+        DesktopPane.removeAll();//remove item pada dekstop pane
+        DesktopPane.repaint();//repaint item pada dekstop pane
+        ////instansiasi class MenuPenjualan() dengan membawa parameter id admin untuk transaksi
         MenuPenjualan mnpenjualan = new MenuPenjualan(id);
-        mnpenjualan.setVisible(true);
-        DesktopPane.add(mnpenjualan);
+        mnpenjualan.setVisible(true);//setter halaman transaksi
+        DesktopPane.add(mnpenjualan);//add item yang sudah di set pada dekstop pane
     }//GEN-LAST:event_transaksiActionPerformed
 
     private void data_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_data_transaksiActionPerformed
         // TODO add your handling code here:
-        DesktopPane.removeAll();
-        DesktopPane.repaint();
-        DataPenjualan dtPenjualan = new DataPenjualan();
-        dtPenjualan.setVisible(true);
-        DesktopPane.add(dtPenjualan);
+        DesktopPane.removeAll();//remove item pada dekstop pane
+        DesktopPane.repaint();//repaint item pada dekstop pane
+        DataPenjualan dtPenjualan = new DataPenjualan();//instansiasi class MenuBarang()
+        dtPenjualan.setVisible(true);//setter halaman data_transaksi
+        DesktopPane.add(dtPenjualan);//add item yang sudah di set pada dekstop pane
     }//GEN-LAST:event_data_transaksiActionPerformed
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // TODO add your handling code here:
-        getExit();
+        getExit();//memanggil function getExit()
     }//GEN-LAST:event_exitActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         // TODO add your handling code here:
-        getLogout();
+        getLogout();//memanggil function getLogout()
     }//GEN-LAST:event_logoutActionPerformed
 
     /**
@@ -393,7 +399,7 @@ public class navbar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-            new navbar(null, "Nama Admin", 1);
+            new navbar(null, "", 0);//parameter default apabila tidak login
             }
         });
     }

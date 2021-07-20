@@ -12,11 +12,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import Config.Conn;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -705,6 +715,41 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                 getId
             };
             db.insertDB("tb_transaksi", column, value);
+            //start cetak struk
+            Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        
+        try {
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/db_siskas","root","");
+        } catch (Exception ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE,null,ex);
+        }
+//        String location = "C:\\Users\\Ahmad Saifur Rohman\\OneDrive\\Documents\\NetBeansProjects\\";
+        String file= "C:\\Users\\Ahmad Saifur Rohman\\OneDrive\\Desktop\\MATKUL\\SMT 2\\WSIBD\\siskas\\src\\SisKas\\Struk.jrxml";
+        JasperReport jr;
+        try {
+            HashMap hash = new HashMap();
+            hash.put("kdTransaksi", kdTransaksi.getText());
+            jr = JasperCompileManager.compileReport(file);
+            JasperPrint jp = JasperFillManager.fillReport(jr, hash, conn);
+            net.sf.jasperreports.swing.JRViewer jv = new net.sf.jasperreports.swing.JRViewer(jp);
+//            JasperViewer.viewReport(jp);
+             JFrame jf = new JFrame();
+                jf.getContentPane().add(jv);
+                jf.validate();
+                jf.setVisible(true);
+                jf.setSize(new Dimension(1200,900));
+                jf.setLocation(300,100);
+                jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                jf.setTitle("Struk Pembelian");
+        } catch (Exception ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE,null,ex);
+        }
+            //end cetak struk
             getKd();
             showTable();
             showTableBarang();

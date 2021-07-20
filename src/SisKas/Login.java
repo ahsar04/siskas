@@ -247,15 +247,18 @@ public class Login extends javax.swing.JFrame {
     private void BLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BLoginActionPerformed
         // TODO add your handling code here:
         try{
+            //Query untuk menampillkan data berdasarkan username dan password yang masukkan
             sql = "SELECT * FROM tb_admin WHERE username = '" +Username.getText()+"' AND password='" +Password.getText()+"'";
             rs = stat.executeQuery(sql);
-                if(rs.next()) {
+                if(rs.next()) {//melakan pengecekan data tersedia atau tidak
                     if(Username.getText().equals(rs.getString("username")) && Password.getText().equals(rs.getString("password"))) {
+                        //jika username dan password yang dimasukan ada di database
+                        //maka jalankan navbar dengan membawa parameter admin id, nama dan hak akses
                         new navbar(rs.getString("admin_id"),rs.getString("nama"),rs.getInt("akses")).setVisible(true);
                         
                         this.dispose();
                     }
-                } else {
+                } else {//jika data tidak ada maka muncul pesan
                     JOptionPane.showMessageDialog(null, "Username atau Password Salah");
                 }
         } catch (Exception e) {
@@ -265,7 +268,7 @@ public class Login extends javax.swing.JFrame {
 
     private void BCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCloseActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        System.exit(0);//fungsi exit atau close program
     }//GEN-LAST:event_BCloseActionPerformed
 
     /**

@@ -193,7 +193,7 @@
 	<detail>
 		<band height="83" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table 3" style="table 3" x="0" y="0" width="552" height="80" uuid="eba5005b-1f67-4be4-86c1-bc6bbf3baa4a"/>
+				<reportElement key="table 3" style="table 3" x="0" y="0" width="552" height="83" uuid="eba5005b-1f67-4be4-86c1-bc6bbf3baa4a"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Transaksi" uuid="669c636e-3901-444c-bd7c-a2085f1bac21">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -345,20 +345,17 @@
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>
-	<pageFooter>
-		<band height="28" splitType="Stretch">
+	<summary>
+		<band height="35" splitType="Stretch">
 			<textField>
-				<reportElement x="432" y="3" width="80" height="20" uuid="d1601029-b1e1-4805-b0eb-615cb3338f4c"/>
+				<reportElement x="430" y="0" width="80" height="20" uuid="0347e230-e5a3-461d-99dc-01975819bb54"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="512" y="3" width="40" height="20" uuid="9fc46e70-35a1-495e-887d-2ccca35bf778"/>
+				<reportElement x="510" y="0" width="40" height="20" uuid="94a80280-d6ce-4d82-9531-0af1bcdf4385"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
-	</pageFooter>
-	<summary>
-		<band height="3" splitType="Stretch"/>
 	</summary>
 </jasperReport>
