@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import Config.Conn;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -343,7 +345,16 @@ public class DataPenjualan extends javax.swing.JInternalFrame {
         try {
             jr = JasperCompileManager.compileReport(file);
             JasperPrint jp = JasperFillManager.fillReport(jr, null, conn);
-            JasperViewer.viewReport(jp);
+            net.sf.jasperreports.swing.JRViewer jv = new net.sf.jasperreports.swing.JRViewer(jp);
+//            JasperViewer.viewReport(jp);
+             JFrame jf = new JFrame();
+                jf.getContentPane().add(jv);
+                jf.validate();
+                jf.setVisible(true);
+                jf.setSize(new Dimension(1200,900));
+                jf.setLocation(300,100);
+                jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                jf.setTitle("Struk Pembelian");
         } catch (Exception ex) {
             Logger.getLogger(Report.class.getName()).log(Level.SEVERE,null,ex);
         }

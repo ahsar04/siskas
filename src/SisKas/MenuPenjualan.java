@@ -144,8 +144,6 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         ttlBayar = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        keterangan = new javax.swing.JTextField();
         btnDelete = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPenjualan = new javax.swing.JTable();
@@ -211,15 +209,6 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
 
         jLabel12.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel12.setText("Kembalian");
-
-        jLabel13.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        jLabel13.setText("Keterangan");
-
-        keterangan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                keteranganActionPerformed(evt);
-            }
-        });
 
         btnDelete.setBackground(new java.awt.Color(255, 255, 255));
         btnDelete.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -392,16 +381,14 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                                             .addComponent(jLabel12)
                                             .addGap(53, 53, 53)))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(keterangan, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lbKembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(ttlBayar, javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(ttlTagihan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))
-                                    .addGap(30, 30, 30)))
+                                    .addGap(180, 180, 180)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel13))
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel11)
                                 .addContainerGap())))))
         );
         layout.setVerticalGroup(
@@ -426,9 +413,7 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(nmBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel13)
-                                            .addComponent(hrgBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(hrgBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -437,9 +422,7 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel11)
-                                    .addComponent(ttlBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(keterangan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(ttlBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -693,8 +676,7 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                 "jml_barang",
                 "total_tagihan", 
                 "total_bayar", 
-                "kembalian", 
-                "ket", 
+                "kembalian",
                 "admin_id"
             };
             int n = tblPenjualan.getRowCount();
@@ -711,7 +693,6 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
                 a,
                 b,
                 kembalian,
-                keterangan.getText(),
                 getId
             };
             db.insertDB("tb_transaksi", column, value);
@@ -758,10 +739,6 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnBayarActionPerformed
-
-    private void keteranganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keteranganActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_keteranganActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
@@ -860,7 +837,6 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -869,7 +845,6 @@ public class MenuPenjualan extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField kdBarang;
     private javax.swing.JLabel kdTransaksi;
-    private javax.swing.JTextField keterangan;
     private javax.swing.JLabel lbKembalian;
     private javax.swing.JTextField nmBarang;
     private javax.swing.JTextField qty;
