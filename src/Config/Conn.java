@@ -105,6 +105,16 @@ public class Conn {
         }
         return rs;
     }
+    public ResultSet custom(String query) {
+        try {
+            SQL =query;
+            st = con.createStatement();
+            rs = st.executeQuery(SQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
     //
     public void deleteDB(String tbl,String colum, String primary) {
         try {

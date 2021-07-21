@@ -121,6 +121,7 @@ public class navbar extends javax.swing.JFrame {
         Jam = new javax.swing.JLabel();
         logout = new javax.swing.JButton();
         nmAdmin = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         DesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -209,6 +210,15 @@ public class navbar extends javax.swing.JFrame {
         nmAdmin.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         nmAdmin.setText("Nama Admin");
 
+        jButton1.setBackground(new java.awt.Color(0, 153, 208));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SisKas/icons/icons8-account-48.png"))); // NOI18N
+        jButton1.setToolTipText("");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -222,6 +232,8 @@ public class navbar extends javax.swing.JFrame {
                 .addComponent(transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(data_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -258,7 +270,8 @@ public class navbar extends javax.swing.JFrame {
                                 .addComponent(transaksi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(admin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(data_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(19, 19, 19))))
         );
 
@@ -368,6 +381,15 @@ public class navbar extends javax.swing.JFrame {
         getLogout();//memanggil function getLogout()
     }//GEN-LAST:event_logoutActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DesktopPane.removeAll();//remove item pada dekstop pane
+        DesktopPane.repaint();//repaint item pada dekstop pane
+        LaporanPenjualan lPenjualan = new LaporanPenjualan();//instansiasi class MenuBarang()
+        lPenjualan.setVisible(true);//setter halaman data_transaksi
+        DesktopPane.add(lPenjualan);//add item yang sudah di set pada dekstop pane
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -412,6 +434,7 @@ public class navbar extends javax.swing.JFrame {
     private javax.swing.JButton barang;
     private javax.swing.JButton data_transaksi;
     private javax.swing.JButton exit;
+    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
     private javax.swing.JMenu jMenu1;
