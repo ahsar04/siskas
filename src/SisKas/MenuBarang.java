@@ -423,6 +423,7 @@ public class MenuBarang extends javax.swing.JInternalFrame {
         btnDelete.setEnabled(false);
         btnUpdate.setEnabled(false);
         btnInsert.setEnabled(true);
+        getKd();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void txtCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariActionPerformed
